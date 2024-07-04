@@ -65,7 +65,7 @@ gibi görünecek şekilde kodu yazın. Unutmayın, bu bir örnektir. Siz sizin k
 
 Terminal üzerinde yüklemeyi yönlendirildiğiniz şekilde tamamlayın.
 
-Şimdi conda çevrelerini kurup aktive edeceğiz. Bu ççevrelerde, yapmak istediğimiz işe uygun olan paketler bir aradadır. Yapmak istediğimiz işe uygun olan çevrede işlerimizi yürütmeliyiz.
+Şimdi conda çevrelerini kurup aktive edeceğiz. Bu çevrelerde, yapmak istediğimiz işe uygun olan paketler bir aradadır. Yapmak istediğimiz işe uygun olan çevrede işlerimizi yürütmeliyiz.
 
 RNAseq çevremizi kuralım;
 
