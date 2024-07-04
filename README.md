@@ -50,7 +50,7 @@ git clone https://github.com/nursenakocaturk/rnaseq
 ```
 şeklinde terminale alınız.
 
-Kullanacağımız ham DNA okumaları ve referans genom bilgileri proje klasörü içerisindeki `data` içerisinde yer almalıdır. İşlenmiş DNA okumaları, ve diğer çıktı dosyaları ise yine proje klasörü içerisindeki `results` klasörü içinde yer alacaktır. Bunları protokolde ilerledikçe oluşturacağız. Biz hala proje klasörünün içerisindeyiz.
+Kullanacağımız ham DNA okumaları ve referans genom bilgileri proje klasörü içerisindeki `data` klasörü içerisinde yer almalıdır. İşlenmiş DNA okumaları, ve diğer çıktı dosyaları ise yine proje klasörü içerisindeki `results` klasörü içinde yer alacaktır. Bunları protokolde ilerledikçe oluşturacağız. Biz hala proje klasörünün içerisindeyiz.
 
 ## Conda Kurulumu ve Programların Aktifleştirilmesi (Eğer sisteminizde conda kurulu değilse)
 
@@ -108,7 +108,7 @@ Ama şu an için rnaseq çevresi içerisinde olmalıyız.
 
 ## Referansların ve Okumaların Alınması
 
-Bu çalışma kapsamında örnek bir veri seti oluşturulmuştur. Klonladığımız klasörün içerisinde 'data_ena.txt' isimli metin dosyasının içerisinde raw/ham okumaların, bu okumalara ait bilgilerin ve indirme linklerinin bir listesi yer almaktadır. Yine bu klasörde 'data.txt' isimlii metin dosyasının içerisinde, bir öndeki metin dosyasından seçilmiş dört adet örnek yer almaktadır.
+Bu çalışma kapsamında örnek bir veri seti oluşturulmuştur. Klonladığımız klasörün içerisinde 'data_ena.txt' isimli metin dosyasının içerisinde raw/ham okumaların, bu okumalara ait bilgilerin ve indirme linklerinin bir listesi yer almaktadır. Yine bu klasörde 'data.txt' isimli metin dosyasının içerisinde, bir öndeki metin dosyasından seçilmiş dört adet örnek yer almaktadır.
 
 Proje klasörümüzün içerisine ham okumaları ve referansımızı alacağımız iki ayrı klasör oluşturalım. 'raw' isimli klasörde ham okumalar, 'ref' isimli klasörümüzde ise referansımız olsun.
 
@@ -169,7 +169,7 @@ Fastqc programı yüksek verimli DNA dizileme işlem hatlarından gelen ham dizi
 
 Fastqc komutları `fastqc_se.sh’` ve `fastqc_pe.sh` betik dosyalarında yer alır.
 
-Bu kısmı çalıştırmak için ilk olarak `fastq` dosyalarının SRA kodlarının bulunduğu `data.txt` dosyasını oluşturmamız gerekir. Bu dosya içerisinde, indirilecek `fastq` dosyasının SRA kodu ve hangi uçlardan dizilendiği (tek yönlü, single end, se veya çift yönlü, paired end, pe) bilgisini içeren ve boşluk karakteri ile ayrılmış iki sütün olmalıdır:
+Bu kısmı çalıştırmak için ilk olarak `fastq` dosyalarının SRA kodlarının bulunduğu `data.txt` dosyasını oluşturmamız gerekir. Bu dosya içerisinde, indirilecek `fastq` dosyasının SRA kodu ve hangi uçlardan dizilendiği (tek yönlü, single end, se veya çift yönlü, paired end, pe) bilgisini içeren ve boşluk karakteri ile ayrılmış iki sütun olmalıdır:
 
 ```
 ERR10671864 pe
@@ -182,13 +182,13 @@ Bu adımı çalıştırmak için aşağıdaki komut yazılır:
 ./part1.sh data.txt
 ```
 
-`sra-tools` ile conda arasındakı uyumsuzluk nedeniyle, DNA okumlarının indirilmesi adımı şimdilik atlanmıştır.
+`sra-tools` ile conda arasındakı uyumsuzluk nedeniyle, DNA okumalarının indirilmesi adımı şimdilik atlanmıştır.
 
 # Adım 2: Fastq Dosyalarını İşleme Adımı
 
 Bu adım için `part2.sh` veya `trimmomatic.sh` betiğini kullanıyoruz. 
 
-part2.sh betiğinin içersindeki `Cutadapt` programı da, trimmomatic.sh betiği içerisindeki trimmomatic programı da ile fastqc dosyalarının işleme adımları gerçekleştirir. 
+part2.sh betiğinin içersindeki `cutadapt` programı da, trimmomatic.sh betiği içerisindeki trimmomatic programı da fastqc dosyalarının işleme adımlarını gerçekleştirir. 
 
 Her ikisi de adaptör dizilerini, primerleri ve diğer istenmeyen dizileri yüksek verimli dizileme verilerinden kaldırmak için kullanılan yazılım aracıdır.
 
@@ -234,8 +234,15 @@ Bu adımda `part5.sh` veya `htseq-counts.sh` betiklerini kullanacağız. part5.s
 Bu betiklerin ikisinde de hizalama sonrası elde edilen veriler, artık gen ifadesi düzeyinde gerçekleştirecek olduğumuz analizlerin baş rolü olan gen ifadesi matrisleri oluşturulacaktır. Burada dikkat etmemiz gereken bir nokta var: `part5.sh` betiğini r çerçevesinde, `htseq-counts.sh` betiğini ise rnaseq çerçevesinde çalıştırmalıyız. 
 Aşağıda verilen kodlarda, bir önceki hizalama adımında hangi hizalama aracını kullandıysak bunu belirtmeliyiz. Eğer hizalamamızı bwa aracıyla yaptıysak bowtie2 yerine bwa yazmalıyız.
 
+`part5.sh` betiği için önce r çevresini aktive atmemiz gerekiyor. 
+
 ```bash
-./part5.sh data.txt bowtie2
+conda activate r
+```
+
+
+```bash
+./part5.sh data.txt bwa
 ```
 
 veya 
