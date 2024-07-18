@@ -511,6 +511,15 @@ colnames(result) <- c("Gene ID", "Base Mean", "Log2 Fold Change", "P-value", "P-
 write.table(file = "deseq-analiz-genlerin-hepsi.csv", sep = ";", quote = FALSE, row.names = F, x = result, dec = ",")
 ```
 
+KEGG analizi için pathview serverı kullanıldı.
+Bu servere girdi olarak verilen dosyalar, normalize sayı matrisi ve normalize sayı matrisinin log2 ile düzeltilmiş versiyonlarıydı.
 
+```{r}
+write.table(file = "expression_normalized.txt", x=count_matrix_normalized, sep = "\t")
+log2_ex_mat_nor <- log2(count_matrix_normalized)
+write.table(file = "log2_expression_normalized.txt", x=log2_ex_mat_nor, sep = "\t")
 
+```
+
+Gene_data olarak yukarıda hazırlanmış sayı matrisleri verildi ve örnekler koşullara göre gruplandırıldı. compound data seçilmedi. Gene ID type ve Compound ID type kegg formatında seçildi. pathwayler manuel olarak seçildi ve hepsi alındı. output pathway olarak seçildi.
 
